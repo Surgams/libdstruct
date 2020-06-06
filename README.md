@@ -24,6 +24,7 @@ $ make
 (requires libcheck https://github.com/libcheck/check)
 
 $ cd test
+
 $ make
 
 ### Installation
