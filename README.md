@@ -3,7 +3,9 @@ Datastructure library for C language, originally inspired by a text book during 
 
 Build and tested on FreeBSD. 
 
-## Currently the library supports the below types:
+## Types
+Currently the library supports the below types:
+
 - List
 - Queue
 - Stack
@@ -18,7 +20,7 @@ For use please check the The **test** and the **demos** folders.
 $ cd src
 $ make
 
-### Run Test
+### Build/Run Test
 $ cd test
 $ make
 
