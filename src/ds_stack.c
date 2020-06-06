@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2020 bluecub
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the BSD license. See LICENSE for details.
+ **/
+
 #include "ds_stack.h"
 
 ushort ds_stack_push (DS_Stack_Ptr stack, const void *data) {

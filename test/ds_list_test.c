@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2020 bluecub
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the BSD license. See LICENSE for details.
+ **/
+
 #include <string.h>
 #include "../src/ds_list.h"
 #include "../src/ds_common.h"
