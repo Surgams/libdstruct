@@ -22,6 +22,7 @@ $ make
 
 ### Build/Run Test
 (requires libcheck https://github.com/libcheck/check)
+
 $ cd test
 $ make
 
