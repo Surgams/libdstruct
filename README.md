@@ -1,9 +1,9 @@
 # libdstruct
-Datastructure library for C language, originally inspired by a text book during university days. I rewrote it now with complete Unit test and full demo classes.
+Datastructure library for C language, originally inspired by a text book during university days. I rewrote it now with complete Unit test and full demo samples.
 
 Build and tested on FreeBSD. 
 
-## Currently supposrt the below types:
+## Currently the library supports the below types:
 - List
 - Queue
 - Stack
@@ -14,19 +14,19 @@ Build and tested on FreeBSD.
 
 For use please check the The **test** and the **demos** folders.
 
-## Build
+### Build
 $ cd src
 $ make
 
-## Run Test
+### Run Test
 $ cd test
 $ make
 
-## Installation
+### Installation
 $ cd src
 $ sudo make install clean
 
-## Deinstallation
+### Deinstallation
 $ cd src
 $ sudo make deinstall
 
