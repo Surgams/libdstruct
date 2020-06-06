@@ -18,6 +18,7 @@ For use please check the The **test** and the **demos** folders.
 
 ### Build
 $ cd src
+
 $ make
 
 ### Build/Run Test
@@ -29,10 +30,12 @@ $ make
 
 ### Installation
 $ cd src
+
 $ sudo make install clean
 
 ### Deinstallation
 $ cd src
+
 $ sudo make deinstall
 
 This will build both static and dynamic libraries. 
