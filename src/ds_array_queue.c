@@ -8,7 +8,7 @@
 #include "ds_array_queue.h"
 
 
-ushort inline static has_capacity(uint32_t size, uint32_t findex, int bindex) {
+inline static ushort has_capacity(uint32_t size, uint32_t findex, int bindex) {
     /* Check if the queue is empty */
     if (bindex == -1 && findex == 0)
         return ds_warning_empty;
