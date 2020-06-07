@@ -1,7 +1,7 @@
 # libdstruct
 Datastructure library for C language, originally inspired by a text book during university days. I rewrote it now with complete Unit test and full demo samples.
 
-Build and tested on FreeBSD. 
+Build and tested on FreeBSD using Clang.
 
 ## Types
 Currently the library supports the below types:
