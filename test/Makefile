@@ -1,6 +1,10 @@
 CC =cc
 CFLAGS=-g3 -Wall -Werror -Wextra
 
+.if $(CC) == gcc
+CFLAGS += -Wl,--copy-dt-needed-entries
+.endif
+
 RM = rm -f
 
 PROJECT_O=libdstruct.o
