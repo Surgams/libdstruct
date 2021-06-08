@@ -1,13 +1,14 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #include "ds_list.h"
 
-ushort ds_list_init (DS_List_Ptr *list, Destroy destroy) {
+uint8_t ds_list_init (DS_List_Ptr *list, Destroy destroy) {
     /* Allocate list */
     if ((*list = (DS_List_Ptr) malloc(sizeof(DS_List))) == NULL)
         return ds_error_cannot_allocate_memory;
@@ -20,7 +21,7 @@ ushort ds_list_init (DS_List_Ptr *list, Destroy destroy) {
     return ds_ok;
 }
 
-ushort ds_list_rem_next (DS_List_Ptr list, DS_Node_Ptr node, void **data) {
+uint8_t ds_list_rem_next (DS_List_Ptr list, DS_Node_Ptr node, void **data) {
     DS_Node_Ptr old_node;
     
     if(!data)
@@ -61,10 +62,10 @@ ushort ds_list_rem_next (DS_List_Ptr list, DS_Node_Ptr node, void **data) {
 }
 
 
-ushort ds_list_purge (DS_List_Ptr list) {
+uint8_t ds_list_purge (DS_List_Ptr list) {
     void *data;
     if (list->destroy != NULL) {
-        ushort return_value = 0;
+        uint8_t return_value = 0;
         /* Remove each node */
         while (ds_list_size(list) > 0) {
             if ((return_value = ds_list_rem_next (list, NULL, (void **)&data)) == ds_ok) {
@@ -78,8 +79,8 @@ ushort ds_list_purge (DS_List_Ptr list) {
     return ds_error_callback_pointer_null;
 }
 
-ushort ds_list_free (DS_List_Ptr *list) {
-    ushort clean_return_value = 0;
+uint8_t ds_list_free (DS_List_Ptr *list) {
+    uint8_t clean_return_value = 0;
     if ((clean_return_value = ds_list_purge(*list)) != ds_ok) 
         return clean_return_value;
 
@@ -91,7 +92,7 @@ ushort ds_list_free (DS_List_Ptr *list) {
     return ds_ok;
 }
 
-ushort ds_list_add_next (DS_List_Ptr list, DS_Node_Ptr node, const void *data) {
+uint8_t ds_list_add_next (DS_List_Ptr list, DS_Node_Ptr node, const void *data) {
 
     DS_Node *new_node;
 
@@ -123,11 +124,11 @@ ushort ds_list_add_next (DS_List_Ptr list, DS_Node_Ptr node, const void *data) {
     return ds_ok;
 }
 
-ushort ds_list_add_head (DS_List_Ptr list, const void *data) {
+uint8_t ds_list_add_head (DS_List_Ptr list, const void *data) {
     return ds_list_add_next(list, NULL, data);
 }
 
-ushort ds_list_add_tail (DS_List_Ptr list, const void *data) {
+uint8_t ds_list_add_tail (DS_List_Ptr list, const void *data) {
     return ds_list_add_next(list, ds_list_tail(list), data);
 }
 

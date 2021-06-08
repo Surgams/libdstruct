@@ -1,21 +1,27 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #ifndef DS_COMMON_H
 #define DS_COMMON_H
 
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+ 
+#define boolean uint8_t
+#define true 1
+#define false 0
+
 
 #define ERROR_CODES 20
 #define MAX_KEY_SIZE 75
 
-typedef unsigned short ushort;
+//typedef unsigned short ushort;
 
 typedef enum ds_return_code {
     ds_ok = 0,        

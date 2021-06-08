@@ -1,14 +1,15 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #include "ds_array_queue.h"
 
 
-inline static ushort has_capacity(uint32_t size, uint32_t findex, int bindex) {
+static uint8_t has_capacity(uint32_t size, uint32_t findex, int bindex) {
     /* Check if the queue is empty */
     if (bindex == -1 && findex == 0)
         return ds_warning_empty;
@@ -21,7 +22,7 @@ inline static ushort has_capacity(uint32_t size, uint32_t findex, int bindex) {
     return ds_ok;
 }
 
-ushort ds_array_queue_init (DS_A_Queue_Ptr *queue, const uint32_t size, Destroy destroy) {
+uint8_t ds_array_queue_init (DS_A_Queue_Ptr *queue, const uint32_t size, Destroy destroy) {
     /* Allocate list */
     if ((*queue = (DS_A_Queue_Ptr) malloc(sizeof(DS_A_Queue) * size * 
                     sizeof(DS_A_Queue_Node))) == NULL)
@@ -35,9 +36,9 @@ ushort ds_array_queue_init (DS_A_Queue_Ptr *queue, const uint32_t size, Destroy 
     return ds_ok;
 }
 
-ushort ds_array_queue_enqueue (DS_A_Queue_Ptr queue, const void *data) {
+uint8_t ds_array_queue_enqueue (DS_A_Queue_Ptr queue, const void *data) {
     DS_A_Queue_Node_Ptr node;
-    ushort capacity = has_capacity(queue->size, queue->index, queue->back_index);
+    uint8_t capacity = has_capacity(queue->size, queue->index, queue->back_index);
 
     if (capacity == ds_warning_buffer_is_full)
         return capacity;
@@ -58,7 +59,7 @@ ushort ds_array_queue_enqueue (DS_A_Queue_Ptr queue, const void *data) {
     return ds_ok;
 }
 
-ushort ds_array_queue_dequeue (DS_A_Queue_Ptr queue, void **data) {
+uint8_t ds_array_queue_dequeue (DS_A_Queue_Ptr queue, void **data) {
     if(!data)
         return ds_error_data_ptr_null;
 
@@ -78,7 +79,7 @@ ushort ds_array_queue_dequeue (DS_A_Queue_Ptr queue, void **data) {
     return ds_ok;
 }
 
-ushort ds_array_queue_free (DS_A_Queue_Ptr *queue) {
+uint8_t ds_array_queue_free (DS_A_Queue_Ptr *queue) {
     uint32_t size = (*queue)->size;
 
     if ((*queue)->destroy == NULL) 
@@ -95,7 +96,7 @@ ushort ds_array_queue_free (DS_A_Queue_Ptr *queue) {
     return ds_ok;
 } 
 
-ushort ds_array_queue_purge (DS_A_Queue_Ptr queue) {
+uint8_t ds_array_queue_purge (DS_A_Queue_Ptr queue) {
     uint32_t size = queue->size;
 
     if (queue->destroy == NULL) 
@@ -109,7 +110,7 @@ ushort ds_array_queue_purge (DS_A_Queue_Ptr queue) {
     return ds_ok;
 }
 
-ushort ds_array_queue_used(DS_A_Queue_Ptr queue) {
+uint8_t ds_array_queue_used(DS_A_Queue_Ptr queue) {
     uint32_t index, size;
     int32_t back_index;
 
@@ -126,7 +127,7 @@ ushort ds_array_queue_used(DS_A_Queue_Ptr queue) {
 }
 
 
-ushort ds_array_queue_capacity(DS_A_Queue_Ptr queue) {
+uint8_t ds_array_queue_capacity(DS_A_Queue_Ptr queue) {
     uint32_t used = ds_array_queue_used(queue);
     return queue->size - used;
 }

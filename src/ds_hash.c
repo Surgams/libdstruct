@@ -1,13 +1,14 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
+#include <stdlib.h>
 #include <math.h>
 #include "ds_hash.h"
-
 
 /* Compare Keys if match */ 
 #define DS_CHK_KEYS_MATCH(node,k)\
@@ -16,7 +17,7 @@
             ? true : false
 
 
-static inline unsigned ds_hash_hash (const char *key) {
+static unsigned ds_hash_hash (const char *key) {
     const char *lkey;
     unsigned hash;
     
@@ -37,7 +38,7 @@ static inline unsigned ds_hash_hash (const char *key) {
 }
 
 
-static inline ushort ds_isprime (const unsigned num) {
+static uint8_t ds_isprime (const unsigned num) {
     int factor;
     int sqrt_value;
 
@@ -55,7 +56,7 @@ static inline ushort ds_isprime (const unsigned num) {
     return true;
 }
 
-static inline ushort ds_roundup_to_prime (const unsigned bsize) {
+static uint16_t ds_roundup_to_prime (const unsigned bsize) {
     unsigned psize = bsize; 
     if ((psize % 2) == 0) 
         psize++;
@@ -66,7 +67,7 @@ static inline ushort ds_roundup_to_prime (const unsigned bsize) {
     return psize;
 }
 
-static inline DS_Hash_Node_Ptr ds_create_hash_node (const char *key, const void *data, ushort *error_code) {
+static DS_Hash_Node_Ptr ds_create_hash_node (const char *key, const void *data, uint8_t *error_code) {
     DS_Hash_Node_Ptr new_node; 
 
     size_t keysize = strnlen(key, MAX_KEY_SIZE); 
@@ -90,7 +91,7 @@ static inline DS_Hash_Node_Ptr ds_create_hash_node (const char *key, const void 
     return NULL;
 } 
 
-static ushort ds_hash_node_destroy (DS_Hash_Table_Ptr htbl, DS_Hash_Node_Ptr node, bool destroy_data) {
+static uint8_t ds_hash_node_destroy (DS_Hash_Table_Ptr htbl, DS_Hash_Node_Ptr node, boolean destroy_data) {
     if (destroy_data) {
         if (htbl->destroy == NULL)  
             return ds_error_callback_pointer_null;
@@ -103,8 +104,8 @@ static ushort ds_hash_node_destroy (DS_Hash_Table_Ptr htbl, DS_Hash_Node_Ptr nod
     return ds_ok;
 }
 
-static ushort ds_hash_destroy (DS_Hash_Table_Ptr htbl) {
-    ushort result = ds_ok;
+static uint8_t ds_hash_destroy (DS_Hash_Table_Ptr htbl) {
+    uint8_t result = ds_ok;
     /* Destroy each bucket */
     for (int i = 0; i < htbl->buckets; i++) {
         /* Destroying bucket lists */
@@ -127,8 +128,8 @@ static ushort ds_hash_destroy (DS_Hash_Table_Ptr htbl) {
     return result;
 }
 
-ushort ds_hash_init (DS_Hash_Table_Ptr *htbl, int buckets, Compare compare, Destroy destroy) {
-    ushort buckets_number = buckets;
+uint8_t ds_hash_init (DS_Hash_Table_Ptr *htbl, int buckets, Compare compare, Destroy destroy) {
+    uint8_t buckets_number = buckets;
 
     if ((*htbl = (DS_Hash_Table_Ptr) malloc (sizeof(DS_Hash_Table))) == NULL) 
         return ds_error_cannot_allocate_memory;
@@ -145,7 +146,7 @@ ushort ds_hash_init (DS_Hash_Table_Ptr *htbl, int buckets, Compare compare, Dest
 
 
     /* Initialise the buckets */
-    for (ushort i = 0; i < (*htbl)->buckets; i++) {
+    for (uint8_t i = 0; i < (*htbl)->buckets; i++) {
         (*htbl)->table[i].size = 0;
         (*htbl)->table[i].head = NULL;
         (*htbl)->table[i].tail = NULL;
@@ -163,8 +164,8 @@ ushort ds_hash_init (DS_Hash_Table_Ptr *htbl, int buckets, Compare compare, Dest
 }
 
 
-ushort ds_hash_free (DS_Hash_Table_Ptr *htbl) {
-    ushort retval;
+uint8_t ds_hash_free (DS_Hash_Table_Ptr *htbl) {
+    uint8_t retval;
     if ((retval = ds_hash_destroy(*htbl)) == ds_ok) {
         /* No operations are allowed now, but clear the structure as a precaution */
         memset(*htbl, 0, sizeof(DS_Hash_Table));
@@ -176,10 +177,10 @@ ushort ds_hash_free (DS_Hash_Table_Ptr *htbl) {
 }
 
 
-ushort ds_hash_put (const DS_Hash_Table_Ptr htbl, const char *key, const void *data) {
+uint8_t ds_hash_put (const DS_Hash_Table_Ptr htbl, const char *key, const void *data) {
     void **temp = NULL;
     DS_Hash_Node *node;
-    ushort retval;
+    uint8_t retval;
     
     if (strnlen(key, MAX_KEY_SIZE) >= MAX_KEY_SIZE)
        return ds_error_in_key_size; 
@@ -190,7 +191,7 @@ ushort ds_hash_put (const DS_Hash_Table_Ptr htbl, const char *key, const void *d
 
 
     /* Insert the data into the bucket */
-    ushort error_code;
+    uint8_t error_code;
     if ((node = ds_create_hash_node (key, data, &error_code)) == NULL)
         return error_code;
 
@@ -203,7 +204,7 @@ ushort ds_hash_put (const DS_Hash_Table_Ptr htbl, const char *key, const void *d
     return retval;
 }
 
-ushort ds_hash_remove (const DS_Hash_Table_Ptr htbl, const char *key, void **data) {
+uint8_t ds_hash_remove (const DS_Hash_Table_Ptr htbl, const char *key, void **data) {
     DS_Node_Ptr list_node, prev_list_node = NULL;
     DS_Hash_Node_Ptr hash_node;
 
@@ -224,7 +225,7 @@ ushort ds_hash_remove (const DS_Hash_Table_Ptr htbl, const char *key, void **dat
             list_node = ds_list_next(list_node)) {
 
         if (DS_CHK_KEYS_MATCH(list_node->data, key)) {
-            ushort retval;
+            uint8_t retval;
             /* Remove the data from the bucket */
             if ((retval = ds_list_rem_next(&htbl->table[bucket], prev_list_node, (void **)&hash_node)) == ds_ok) {
                 /* Returning the data in the Hash Node */
@@ -244,7 +245,7 @@ ushort ds_hash_remove (const DS_Hash_Table_Ptr htbl, const char *key, void **dat
     return ds_warning_element_not_found;
 }
 
-ushort ds_hash_get (const DS_Hash_Table_Ptr htbl, const char *key, void **data) {
+uint8_t ds_hash_get (const DS_Hash_Table_Ptr htbl, const char *key, void **data) {
     DS_Node_Ptr list_node;
     
     if(!data)

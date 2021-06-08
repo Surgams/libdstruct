@@ -1,13 +1,16 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #ifndef LIST_H
 #define LIST_H
 
+#include <stdint.h>
+#include "ds_list.h"
 #include "ds_common.h"
 
 /* Linked list datastructure defintion */
@@ -39,14 +42,14 @@ typedef DS_Node * DS_Node_Ptr;
 
 /* Public Interface */
 
-ushort ds_list_init (DS_List_Ptr *list, Destroy destroy);
-ushort ds_list_purge (DS_List_Ptr list);
-ushort ds_list_free (DS_List_Ptr *list);
-ushort ds_list_add_head (DS_List_Ptr list, const void *data);
-ushort ds_list_add_tail (DS_List_Ptr list, const void *data);
-ushort ds_list_add_next (DS_List_Ptr list, DS_Node_Ptr node, const void *data);
+uint8_t ds_list_init (DS_List_Ptr *list, Destroy destroy);
+uint8_t ds_list_purge (DS_List_Ptr list);
+uint8_t ds_list_free (DS_List_Ptr *list);
+uint8_t ds_list_add_head (DS_List_Ptr list, const void *data);
+uint8_t ds_list_add_tail (DS_List_Ptr list, const void *data);
+uint8_t ds_list_add_next (DS_List_Ptr list, DS_Node_Ptr node, const void *data);
 
-ushort ds_list_rem_next (DS_List_Ptr list, DS_Node_Ptr node, void **data);
+uint8_t ds_list_rem_next (DS_List_Ptr list, DS_Node_Ptr node, void **data);
 
 #define ds_list_size(list)((list)->size)
 #define ds_list_head(list)((list)->head)

@@ -1,14 +1,14 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #include "ds_array_stack.h"
 
-
-ushort ds_array_stack_init (DS_A_Stack_Ptr *stack, const uint32_t size, Destroy destroy) {
+uint8_t ds_array_stack_init (DS_A_Stack_Ptr *stack, const uint32_t size, Destroy destroy) {
     /* Allocate list */
     if ((*stack = (DS_A_Stack_Ptr) malloc(sizeof(DS_A_Stack) * size * sizeof(DS_A_Stack_Node))) == NULL)
         return ds_error_cannot_allocate_memory;
@@ -20,7 +20,7 @@ ushort ds_array_stack_init (DS_A_Stack_Ptr *stack, const uint32_t size, Destroy 
     return ds_ok;
 
 }
-ushort ds_array_stack_push (DS_A_Stack_Ptr stack, const void *data) {
+uint8_t ds_array_stack_push (DS_A_Stack_Ptr stack, const void *data) {
     DS_A_Stack_Node_Ptr node;
     if (ds_array_stack_isfull(stack))
         return ds_warning_buffer_is_full;
@@ -33,7 +33,7 @@ ushort ds_array_stack_push (DS_A_Stack_Ptr stack, const void *data) {
     return ds_ok;
 }
 
-ushort ds_array_stack_pop (DS_A_Stack_Ptr stack, void **data) {
+uint8_t ds_array_stack_pop (DS_A_Stack_Ptr stack, void **data) {
     if(!data)
         return ds_error_data_ptr_null;
 
@@ -50,8 +50,8 @@ ushort ds_array_stack_pop (DS_A_Stack_Ptr stack, void **data) {
     return ds_ok;
 }
 
-ushort ds_array_stack_free (DS_A_Stack_Ptr *stack) {
-    ushort ret_val;
+uint8_t ds_array_stack_free (DS_A_Stack_Ptr *stack) {
+    uint8_t ret_val;
     if ((ret_val = ds_array_stack_purge (*stack)) != ds_ok)
         return ret_val;
     
@@ -60,7 +60,7 @@ ushort ds_array_stack_free (DS_A_Stack_Ptr *stack) {
     return ds_ok;
 } 
 
-ushort ds_array_stack_purge (DS_A_Stack_Ptr stack) {
+uint8_t ds_array_stack_purge (DS_A_Stack_Ptr stack) {
     uint32_t local_index = stack->index;
 
     if (stack->destroy == NULL) 

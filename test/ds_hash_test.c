@@ -1,9 +1,10 @@
 /**
- * Copyright (c) 2020 Surgams
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the BSD license. See LICENSE for details.
- **/
+*  Copyright (c) 2020 Surgams
+*
+*  This library is free software; you can redistribute it and/or modify it
+*  under the terms of the BSD license. See LICENSE for details.
+*
+**/
 
 #include <stdio.h>
 #include <string.h>
@@ -83,7 +84,7 @@ START_TEST (test_create_hash_node) {
     ck_assert_str_eq(data->string, "first");
 
 
-    unsigned short error_code = 0;
+    uint8_t error_code = 0;
     DS_Hash_Node_Ptr node = ds_create_hash_node (some_key, data, &error_code);
     ck_assert_int_eq(error_code, ds_ok);
     ck_assert_str_eq(node->key, some_key);
@@ -111,7 +112,7 @@ START_TEST (test_create_hash_node_wrong_keysize) {
     char some_key[75];
     memset(some_key, 'x', 75);
 
-    unsigned short error_code = 0;
+    uint8_t error_code = 0;
     DS_Hash_Node_Ptr node = ds_create_hash_node (some_key, data, &error_code);
     ck_assert_int_eq(error_code, ds_error_in_key_size);
     ck_assert_ptr_eq(node, NULL);
@@ -156,7 +157,7 @@ START_TEST (test_hash_table_node_destroy) {
         ck_assert_int_eq(htbl->table[i].size, 0);
     }
 
-    unsigned short error_code = 0;
+    uint8_t error_code = 0;
     DS_Hash_Node_Ptr node = ds_create_hash_node (some_key, data, &error_code);
     ck_assert_int_eq(error_code, ds_ok);
     ck_assert_str_eq(node->key, some_key);
