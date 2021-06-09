@@ -1,5 +1,5 @@
 # libdstruct
-Datastructure library for C language, written with with complete Unit tests and full demo samples.
+Datastructure library for C language, written with complete set of Unit tests and full demo samples.
 Provides a complete interface to fundamental data-structres.
 
 Build and tested on FreeBSD and OpenBSD using Clang and gcc.
