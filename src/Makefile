@@ -1,6 +1,6 @@
 CC =cc
-CFLAGS=-O3 -Wall -Werror -Wextra 
-CFLAGS_DEBUG=-g3 -Wall -Werror -Wextra 
+CFLAGS=--std=c11 -O3 -Wall -Werror -Wextra 
+CFLAGS_DEBUG=--std=c11 -g3 -Wall -Werror -Wextra 
 
 RM = rm -f
 
