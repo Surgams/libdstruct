@@ -17,7 +17,7 @@
             ? true : false
 
 
-static unsigned ds_hash_hash (const char *key) {
+static inline unsigned ds_hash_hash (const char *key) {
     const char *lkey;
     unsigned hash;
     
@@ -38,7 +38,7 @@ static unsigned ds_hash_hash (const char *key) {
 }
 
 
-static uint8_t ds_isprime (const unsigned num) {
+static inline uint8_t ds_isprime (const unsigned num) {
     int factor;
     int sqrt_value;
 
@@ -56,7 +56,7 @@ static uint8_t ds_isprime (const unsigned num) {
     return true;
 }
 
-static uint16_t ds_roundup_to_prime (const unsigned bsize) {
+static inline uint8_t ds_roundup_to_prime (const unsigned bsize) {
     unsigned psize = bsize; 
     if ((psize % 2) == 0) 
         psize++;
@@ -67,7 +67,7 @@ static uint16_t ds_roundup_to_prime (const unsigned bsize) {
     return psize;
 }
 
-static DS_Hash_Node_Ptr ds_create_hash_node (const char *key, const void *data, uint8_t *error_code) {
+static inline DS_Hash_Node_Ptr ds_create_hash_node (const char *key, const void *data, uint8_t *error_code) {
     DS_Hash_Node_Ptr new_node; 
 
     size_t keysize = strnlen(key, MAX_KEY_SIZE); 
@@ -275,3 +275,21 @@ uint8_t ds_hash_get (const DS_Hash_Table_Ptr htbl, const char *key, void **data)
 }
 
 
+uint8_t ds_hash_iterate_keys (const DS_Hash_Table_Ptr htbl, char *keys[], int keys_size) {
+    int counter = 0;
+    if ((*keys = (char *) malloc(sizeof(char *) * htbl->size)) == NULL)
+        return ds_error_cannot_allocate_memory;
+
+    for (int i = 0; i < htbl->buckets; i++) {
+        if (htbl->table[i].size > 0) {
+
+            for (DS_Node_Ptr list_node = ds_list_head(&htbl->table[i]); list_node != NULL; list_node =
+                    ds_list_next(list_node)) {
+                keys[counter++] = ((DS_Hash_Node_Ptr)(list_node->data))->key;
+                if (counter > keys_size)
+                    break;
+            }
+        }
+    }
+    return ds_ok;
+}

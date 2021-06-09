@@ -42,6 +42,7 @@ uint8_t ds_hash_free (DS_Hash_Table_Ptr *htbl);
 uint8_t ds_hash_put (DS_Hash_Table_Ptr htbl, const char *key, const void *data);
 uint8_t ds_hash_remove (DS_Hash_Table_Ptr htbl, const char *key, void **data);
 uint8_t ds_hash_get (const DS_Hash_Table_Ptr htbl, const char *key, void **data);
+uint8_t ds_hash_iterate_keys (const DS_Hash_Table_Ptr htbl, char *keys[], int keys_size);
 
 #define ds_hash_size(htbl) ((htbl)->size)
 

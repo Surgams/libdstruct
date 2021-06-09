@@ -12,7 +12,7 @@
 #include "../src/ds_hash.h"
 #include <stdlib.h>
 
-/* Sample client data type and destro */
+/* Sample client data type and destroy method */
 typedef struct data {
     int size;
     char* string;
@@ -76,6 +76,18 @@ int main() {
         printf("\n%s\n", ERROR_MESSAGE(ret_code));
     printf("\nReturned data is [%s] and it should be [%s]", data_back2->string, data2->string);
     
+
+    char *keys_array[htbl->size];
+    int return_size = htbl->size;
+    if ((ret_code =ds_hash_iterate_keys (htbl, keys_array, return_size)) != ds_ok)
+        printf("\n%s\n", ERROR_MESSAGE(ret_code));
+
+    for (int i=0; i < return_size; i++) {
+        printf("\nReturned Keys is [%s] ", keys_array[i]);
+ 
+    }
+
+
     /* Remove the first node */
     if ((ret_code = ds_hash_remove (htbl, some_key1, (void **)&data_back1)) != ds_ok)
         printf("\n%s\n", ERROR_MESSAGE(ret_code));
