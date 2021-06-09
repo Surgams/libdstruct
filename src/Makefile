@@ -11,7 +11,7 @@ OBJECTS=ds_hash.o ds_list.o	ds_queue.o ds_stack.o ds_set.o ds_array_stack.o ds_a
 HEADERS=ds_*.h  
 SOURCES=ds_hash.c ds_list.c	ds_queue.c ds_stack.c ds_set.c ds_array_stack.c ds_array_queue.c
 
-VERSION=1.2.0
+VERSION=1.1.0
 OUTPUT=$(PROJECT_D)
 OUTPUT_STATIC=$(PROJECT_S)
 LIB_DIR=/usr/local/lib
