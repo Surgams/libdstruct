@@ -2,7 +2,7 @@
 Datastructure library for C language, written in ANSI C with complete set of Unit tests and full demo samples.
 Provides a complete interface to fundamental data-structres.
 
-Build and tested on FreeBSD and OpenBSD, NetBSD (Should work on Linux perfectly on Linux) using Clang and gcc.
+Build and tested on FreeBSD and OpenBSD, NetBSD (Should work perfectly on Linux) using Clang and gcc.
 
 ## Types
 Currently the library supports the below types:
